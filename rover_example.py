@@ -1,5 +1,5 @@
 from UDPComms import Publisher
-from PS4Joystick import Joystick
+from PS3Joystick import Joystick
 
 import time
 from enum import Enum
