@@ -1,10 +1,12 @@
 [Unit]
 Description=Rover Joystick service
+After=bluetooth.target multi-user.target
 
 [Service]
+User=pi
 ExecStart=/usr/bin/python3 /home/pi/PS4Joystick/rover_example.py
 Restart=always
-RestartSec=5
+RestartSec=2
 TimeoutStopSec=5
 
 [Install]
