@@ -2,9 +2,9 @@
 
 from distutils.core import setup
 
-setup(name='PS4Joystick',
+setup(name='PS3Joystick',
       version='2.0',
-      py_modules=['PS4Joystick'],
+      py_modules=['PS3Joystick'],
       description='Interfaces with a PS4 joystick over Bluetooth',
       author='Michal Adamkiewicz',
       author_email='mikadam@stanford.edu',
