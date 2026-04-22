@@ -20,7 +20,7 @@ echo "============================================="
 # ===================== 1. 安装通用依赖 =====================
 echo "[1/7] 安装基础依赖..."
 sudo apt update
-sudo apt install -y build-essential libusb-dev python3-pip jstest
+sudo apt install -y build-essential libusb-dev libusb-1.0-0-dev python3-pip joystick
 
 # ===================== 2. 编译安装 BlueZ (仅Linux) =====================
 if [ -z "$SKIP_DRIVER" ]; then
