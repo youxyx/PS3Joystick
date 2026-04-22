@@ -41,51 +41,7 @@ fi
 # ===================== 3. 编译 sixpair (按你提供的源码生成) =====================
 echo "[3/7] 编译 sixpair 配对工具..."
 cd ~
-# 直接生成你指定的sixpair.c源码
-cat > sixpair.c << 'EOF'
-#include <usb.h>
-#include <stdio.h>
-#define VENDOR 0x054c
-#define PRODUCT 0x0268
-int main(int argc, char **argv) {
-    struct usb_bus *bus;
-    struct usb_device *dev;
-    usb_dev_handle *handle;
-    unsigned char buf[8];
-    int i;
-
-    usb_init();
-    usb_find_busses();
-    usb_find_devices();
-
-    for (bus = usb_get_busses(); bus; bus = bus->next) {
-        for (dev = bus->devices; dev; dev = dev->next) {
-            if (dev->descriptor.idVendor == VENDOR && dev->descriptor.idProduct == PRODUCT) {
-                printf("Found PS3 controller\n");
-                handle = usb_open(dev);
-                if (!handle) return 1;
-                usb_get_report(handle, 0x03, 0xf2, buf, 8);
-                printf("Current Bluetooth master: ");
-                for (i = 0; i < 6; i++)
-                    printf("%02x%s", buf[i], i == 5 ? "\n" : ":");
-                if (argc > 1) {
-                    unsigned char mac[6];
-                    sscanf(argv[1], "%hhx:%hhx:%hhx:%hhx:%hhx:%hhx",
-                           &mac[0], &mac[1], &mac[2], &mac[3], &mac[4], &mac[5]);
-                    usb_set_report(handle, 0x03, 0xf2, mac, 6);
-                    printf("Success!\n");
-                }
-                usb_close(handle);
-                return 0;
-            }
-        }
-    }
-    printf("No PS3 controller found\n");
-    return 1;
-}
-EOF
-
-# 编译（严格按你的命令）
+wget http://www.pabr.org/sixlinux/sixpair.c
 gcc -o sixpair sixpair.c -lusb
 cd "$FOLDER"
 
